@@ -6,24 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
-    <title>Document</title>
+    <script defer src="./public/js/index.js"></script>
+    <title>ToDoList</title>
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-6">
-                <form class="card my-4">
+                <form class="card my-4" id="todo-form">
                     <div class="card-body">
                         <h4 class="card-title">
                             Lista por hacer
                         </h4>
                         <div class="mb-3">
-                            <input class="form-control" type="text" placeholder="Escriba una tarea..."/>
+                            <input 
+                            class="form-control" 
+                            type="text" 
+                            placeholder="Escriba una tarea..."
+                            id="todo-text"
+                            required/>
                         </div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus-circle"></i> </button>
+                        <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> </button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <ul id="todo-list" class="list-group">
+                    <li class="list-group-item">Hola</li>
+                </ul>
             </div>
         </div>
     </div>
