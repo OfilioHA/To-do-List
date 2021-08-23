@@ -14,29 +14,11 @@ window.addEventListener("load", function () {
     const manejadorDeEventos = () => {
         _DOM.form.addEventListener("submit", (e) => {
             e.preventDefault();
-            if(_DOM.text.value === ""){
-                Swal.fire('¡Error!', '¡Campo de texto vacio!', 'error')
-                return;
-            }
-            const domTemporal = this.document.createElement('div');
-            let elementoPlantilla = `
-            <li class="list-group-item">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span>${_DOM.text.value}</span>
-                    <div>
-                        <button class="boton-editar btn btn-outline-success py-1">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="boton-eliminar btn btn-outline-danger py-1">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                </div>
-            </li>            
-            `
-            domTemporal.innerHTML = elementoPlantilla;
-            const elementoLista = domTemporal.firstElementChild;
-            _DOM.list.append(elementoLista);
+            if(!validarFormulario()) return;
+            const elementoLi = this.document.createElement('li');
+            elementoLi.classList.add('list-group-item');
+            elementoLi.innerHTML = crearPlantilla();
+            _DOM.list.append(elementoLi);
             manejadorEventosDinamicos();
             _DOM.text.value = "";
             Swal.fire('¡Exito!', '¡Se ha añadido una tarea!', 'success')
@@ -70,18 +52,37 @@ window.addEventListener("load", function () {
 
         for (let i = 0; i < botonesEditar.length; i++) {
             botonesEditar[i].addEventListener("click", (e) => {
-                if (_DOM.text.value === "") {
-                    Swal.fire('¡Error!', '¡Campo de texto vacio!', 'error')
-                    return;
-                };
-                let button = (e.target.tagName === "I") ? e.target.parentNode : e.target;
+                if (!validarFormulario()) return; 
+                let button = e.currentTarget;
                 let span = button.parentNode.parentNode.firstElementChild;
                 span.innerText = _DOM.text.value;
                 _DOM.text.value = "";
-                Swal.fire('¡Exito!', '¡Tarea editada exitosamente!', 'success')
-                
+                Swal.fire('¡Exito!', '¡Tarea editada exitosamente!', 'success'); 
             })
         }
+    }
+
+    const validarFormulario = () =>{
+        if(_DOM.text.value === ""){
+            Swal.fire('¡Error!', '¡Campo de texto vacio!', 'error')
+            return false;
+        }
+        return true;
+    }
+
+    const crearPlantilla = ()=>{
+        return `
+            <div class="d-flex justify-content-between align-items-center">
+            <span>${_DOM.text.value}</span>
+            <div>
+                <button class="boton-editar btn btn-outline-success py-1">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="boton-eliminar btn btn-outline-danger py-1">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>`
     }
 
     const init = () => {
